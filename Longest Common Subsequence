@@ -1,0 +1,37 @@
+Given two strings, find the length of longest subsequence present in both of them. Both the strings are in uppercase latin alphabets.
+
+Example 1:
+
+Input:
+A = 6, B = 6
+str1 = ABCDGH
+str2 = AEDFHR
+Output: 3
+Explanation: LCS for input strings “ABCDGH” and “AEDFHR” is “ADH” of length 3.
+
+
+
+def longest_common_subsequence(A, B, str1, str2):
+    m, n = len(str1), len(str2)
+
+    # Create a 2D array to store the length of the LCS
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    # Fill the dp array using dynamic programming
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if str1[i - 1] == str2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+    # The length of LCS is stored in dp[m][n]
+    return dp[m][n]
+
+# Example usage
+A = 6
+B = 6
+str1 = "ABCDGH"
+str2 = "AEDFHR"
+result = longest_common_subsequence(A, B, str1, str2)
+print(result)  # Output: 3
